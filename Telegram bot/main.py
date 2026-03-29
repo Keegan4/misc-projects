@@ -4,7 +4,6 @@ from openpyxl.writer.theme import theme_xml
 from telegram import Update
 from telegram.ext import Application, CommandHandler, MessageHandler, filters, ContextTypes, ConversationHandler
 import sqlite3
-from rapidfuzz import process, fuzz
 
 #Global variables
 CHOOSING = 1
@@ -262,40 +261,6 @@ async def mini3(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
 
 
-
-async def selection(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    text = update.message.text
-    if text == "1":
-        await update.message.reply_text("You chose Add Incident. Please enter student incident details:\n"
-                                        "Pls put each field seperated by a newline.\n\n"
-                                        "Class\nDate\nIncident\nEntered By")
-        return "Add"
-    elif text == "2":
-        await update.message.reply_text("You chose Search Incident.")
-        with open("student.txt", "r") as f:
-            await update.message.reply_document(f)
-        await update.message.reply_text("Would you like to continue?: y/n")
-        return "Continue"
-    elif text == "3":
-        await update.message.reply_text("Thank you! Hope you have a great day!")
-        return ConversationHandler.END
-    else:
-        await update.message.reply_text("Invalid choice, please reply 1 or 2.")
-        return "choice"  # stay in same state
-
-
-
-async def Continue(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    text = update.message.text
-    if text == "y":
-        await update.message.reply_text(query)
-        return "choice"
-    else:
-        await update.message.reply_text("Thank you! Have a great day.")
-        return ConversationHandler.END
-
-
-
 async def cancel(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await update.message.reply_text("Cancelled.")
     return ConversationHandler.END
@@ -319,9 +284,7 @@ if __name__ == "__main__":
             "loop": [MessageHandler(filters.TEXT & ~filters.COMMAND, loop)],
             "Mini1": [MessageHandler(filters.TEXT & ~filters.COMMAND, mini1)],
             "Mini2": [MessageHandler(filters.TEXT & ~filters.COMMAND, mini2)],
-            "Mini3": [MessageHandler(filters.TEXT & ~filters.COMMAND, mini3)],
-            "Selection": [MessageHandler(filters.TEXT & ~filters.COMMAND, selection)],
-            "Continue": [MessageHandler(filters.TEXT & ~filters.COMMAND, Continue)]
+            "Mini3": [MessageHandler(filters.TEXT & ~filters.COMMAND, mini3)]
         },
         fallbacks=[CommandHandler("quit", quit_command)],
     )
