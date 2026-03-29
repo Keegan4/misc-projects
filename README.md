@@ -1,12 +1,13 @@
 # Miscellaneous Projects
 
-This repo consists of standalone python projects to automate tasks.
+This repo consists of standalone python projects.
 
 It consists of:
 - Aim trainer
-- typeracer
+- typeracer automater
 - reaction time
 - notetaker (WIP)
+- Telegram Bot (Valentines day gift)
 
 ## Requirements
 - Python3
@@ -14,3 +15,5 @@ It consists of:
 - pynput
 - pytesseract
 - pyscreenshot
+- telegram
+- typing
